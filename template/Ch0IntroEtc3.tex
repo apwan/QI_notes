@@ -1,0 +1,158 @@
+%\documentclass[preprint,prl,superscriptaddress]{revtex4-1}
+%\documentclass[twocolumn,nofootinbib]{nature}
+\documentclass[onecolumn,pra,superscriptaddress]{revtex4-1}
+
+% packages
+\usepackage[dvips]{graphicx} % for figures
+\usepackage{amsfonts,amssymb,amscd,amsmath,amsthm}
+\usepackage{enumerate}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabu}
+\usepackage{colortbl}
+%\usepackage[expert]{mathdesign}
+
+\newcommand{\bra}[1]{\mbox{$\left\langle #1 \right|$}}
+\newcommand{\ket}[1]{\mbox{$\left| #1 \right\rangle$}}
+\newcommand{\braket}[2]{\mbox{$\left\langle #1 | #2 \right\rangle$}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{claim}{Claim}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{observation}{Observation}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\title{Lecture 0: outline, introduction and etc}
+
+%% For REVTeX it is possible to automate superscript and e-mail callouts with the superscriptaddress option; see REVTeX4 documentation.
+
+
+\author{Xiongfeng Ma}
+\email{xma@tsinghua.edu.cn}
+\affiliation{Center for Quantum Information, Institute for Interdisciplinary Information Sciences, Tsinghua University, Beijing 100084, China}
+
+
+\begin{abstract}
+In this course, we shall cover the basics on quantum information, including basic elements in quantum mechanics (general state, measure, and operation), entanglement, quantum computing, quantum cryptography, and other quantum tasks. Meanwhile, we shall also cover some implementations, such as quantum optics.
+
+Parts of the lecture notes come from Hoi-Kwong Lo's lecture notes on Quantum Information Theory at the University of Toronto, John Preskill's lectures notes on Quantum Computation at California Institute of Technology, the text book [Nielsen and Chuang, Quantum Computation and Quantum Information]. Many descriptions of terminologies follow the ones appeared in wikipedia.
+
+The lecture notes are prepared by Xiongfeng Ma, Xiao Yuan, and Zhen Zhang.
+\end{abstract}
+
+%\ocis{(270.5565) Quantum communications; (270.5568) Quantum cryptography.}
+
+
+\maketitle %% required
+
+%\chapter{Review of state, evolution, and measurement}
+
+\section{Outline}
+In this semester, there are 16 weeks. Each week, we shall have four lectures, scheduled 9:50-12:25 on Monday and Wednesday. After excluding the National holiday week, we have 15 weeks for lectures, including 1 external lecture (Oct.~19th), 1 tutorial lecture (Oct.~21st), 1 lecture for the mid-term exam (8th week), and 1 lecture for the final exam review. Details of the course outline can be find in the excel file on the course website. %The following outline is for the rest 13-week lectures.
+%\begin{table} [htb]
+%\centering
+%\caption{Final mark} \label{tab:FinalMark}
+%\label{Tab:Result}
+%\begin{tabular}{ccl}
+%\toprule[2pt]
+%{Week} &  {Date} & \multicolumn{1}{c}{Contents}\\
+%\midrule[1pt]
+%\multirow{2}{*}{1} & Sep.~14, 15 & Motivation of quantum information; 1-qubit pure state, Born's law, density matrix, Bloch sphere, Pauli matrices\\
+% &Sep.~16, 15 & Projection-valued measure (PVM), unitary evolution, quantum no-cloning theorem, no-deletion theorem\\
+%
+% \multirow{2}{*}{2} & Sep.~21, 15& Two-qubit state, mixed state, Bloch ``ball", positive-operator valued measure (POVM)\\
+% &Sep.~23, 15 & Super operator, purification of mixed state and POVM\\
+%
+% \multirow{2}{*}{3} & Sep.~28, 15 & Bell's inequality, CHSH/CH/Eberhard inequality\\
+% &Sep.~30, 15 & Experiment development and loopholes, entanglement\\
+%
+%  \multirow{2}{*}{4} & Oct.~5, 15 & Quantum dense coding, teleportation (experiment development)\\
+% &Oct.~7, 15 & Using teleportation for operation (Gottesman-Chuang'99), remote state preparation\\
+%
+%  \multirow{2}{*}{4} & Oct.~5, 15 & Quantum dense coding, teleportation (experiment development)\\
+% &Oct.~7, 15 & Using teleportation for operation (Gottesman-Chuang'99), remote state preparation\\
+%
+%  \multirow{2}{*}{5} & Oct.~12, 15 & General state, measure, evolution, master equation, review of information theory\\
+% &Oct.~14, 15 & Shannon entropy, von Neumann entropy, relative entropy, conditional entropy, Renyi entropy\\
+%
+%  \multirow{2}{*}{6} & Oct.~19, 15 & External lecture\\
+%  &Oct.~21, 15&Tutorial lecture\\
+%
+%   \multirow{2}{*}{7} & Oct.~26, 15 & Quantum communication, quantum channels\\
+% &Oct.~28, 15 & Channel capacity, Holevo bound\\
+%
+%   \multirow{2}{*}{8} & Nov.~2, 15 &Mid term\\
+% &Nov.~4, 15 & Mid term\\
+%
+%   \multirow{2}{*}{9} & Nov.~9, 15 & Uncertainty relation, coherence, quantum correlation, discord\\
+% &Nov.~11, 15 & Entanglement witness and quantification, GHZ/W state, LOCC\\
+%
+%   \multirow{2}{*}{10} & Nov.~16, 15 & Quantum algorithms: Deutsch-Jozsa's algorithm\\
+% &Nov.~18, 15 & Glover's search algorithm, Shor's algorithm\\
+%
+%   \multirow{2}{*}{11} & Nov.~23, 15 & Quantum error correction code 1\\
+% &Nov.~25, 15 & Quantum error correction code 2\\
+%
+%   \multirow{2}{*}{12} & Nov.~30, 15 & Quantum secret sharing \\
+% &Dec.~2, 15 & Quantum secret sharing\\
+%
+%   \multirow{2}{*}{13} & Dec.~7, 15 & Quantum key distribution, quantum bit commitment, quantum random number generation\\
+% &Dec.~9, 15 & Data locking, (semi) device-independent scenarios, quantum oblivious transfer, quantum signature\\
+%
+%   \multirow{2}{*}{14} & Dec.~14, 15 & Quantum computing realizations\\
+% &Dec.~16, 15 & Quantum computing realizations\\
+%
+%    \multirow{2}{*}{15} & Dec.~21, 15 & Quantum metrology\\
+% &Dec.~23, 15 & Quantum metrology\\
+%\bottomrule[2pt]
+%\end{tabular}
+%\end{table}
+
+
+
+
+
+\section{Course evaluation}
+The final mark is evaluated by Table \ref{tab:FinalMark}, which is tentative.
+
+\begin{table} [htb]
+\centering
+\caption{Final mark} \label{tab:FinalMark}
+\label{Tab:Result}
+\begin{tabular}{ccccccccc}
+\hline
+Homework & Mid-term & Final exam & Reading report \\
+\hline
+25\% & 25\% & 40\% & 10\% \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Basics in linear algebra}
+vector, matrix, multiplication, tensor product
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% choose a style
+%\bibliographystyle{ieeetr}
+%\bibliographystyle{unsrt}
+\bibliographystyle{apsrev4-1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% choose a .bib file
+\bibliography{bibAdvQI}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+

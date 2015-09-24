@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{extarrows}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{mathrsfs}
+\usepackage[linesnumbered,boxed]{algorithm2e}  %for using box
+\usepackage{graphicx,float,wrapfig}     %for inserting figures etc.
+\usepackage{verbatim}   %for using the environment of comment
+\usepackage{multicol}    %for using the environment of multicolumn
+\usepackage{tikz}           %for convenient drawing
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usepackage{pdfpages}
+\usepackage[pdftex,colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+%BASIC INFO
+\newcommand{\StudentName}{Wu Yijie}
+\newcommand{\StudentClass}{JK30}
+\newcommand{\StudentNumber}{2013011314}
+\newcommand{\Class}{Quantum Information}
+\newcommand{\ClassInstructor}{Xiongfeng Ma}
+
+
+%%%% In case you need to adjust margins:
+\topmargin=-0.75in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.5in       %
+\headsep=0.10in         %
+
+%%%% Setup the header and footer
+\pagestyle{fancy}                                                       %
+                     %
+\chead{\Title\quad\firstxmark}  %
+\rhead{Page\ \thepage\ of\ \protect\pageref{LastPage}}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{}             %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{hwPro}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{hwSec}[1]%parts of homework problem
+  {% We put this space here to make sure we're not connected to the above.
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.2in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }   %note first letter 'A' capital!
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+\newcommand{\wtM}{\textcolor{white}{M}}  %for indent in before paragraphs
+\newcommand{\ud}{\mathrm{d}} %for derivative
+\newcommand{\cm}{\mathrm{\,cm}} %centimeter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Title}{Week 2}
+\newcommand{\DueDate}{September, 2015}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\bfone}{\mathbf{I}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\StudentName\quad \StudentNumber}
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\{\large Instructed by \textit{\ClassInstructor}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \DueDate}}
+\date{}
+\begin{document}
+
+\begin{spacing}{1.2}
+\author{\textbf{\StudentName}\qquad\StudentClass\quad\StudentNumber}
+\maketitle \thispagestyle{empty}
+
+\section{Review}
+\begin{itemize}
+\item $\rho_A = \Tr_B(\rho_{AB})$, e.g. $\vert\psi\rangle_{AB} = a\vert 0\rangle_A \vert 0\rangle_B + b \vert 1\rangle_A \vert 1\rangle_B$. Then $\rho_A = \Tr_B(\vert\psi\rangle_{AB}\langle\psi\vert_{AB}) = aa^* \vert 0\rangle \langle 0\vert + bb^*\vert 1\rangle \langle 1\vert$ 
+\item Property: (1)$\rho_A^\dagger = \rho_A$; (2)$\rho_A\geq 0$(when diagonalized) (3)$\Tr(\rho_A) =1 $ (pure state)
+
+Comment: If $\rho_A$ is pure state, then $\rho_A^2 = \rho_A$, the purity $\Tr(\rho_A^2)\leq 1 \Rightarrow \Tr(\rho_A^2) =1 $.
+\item Pauli matrices: $\sigma_x,\sigma_y,\sigma_z,\mathbf{I}$. $\rho = \frac{1}{2}(\mathbf{I}+\vec{P}\cdot \vec{\sigma})$. $\vec{P}\cdot\vec{\sigma} = P_x\sigma_x + P_y\sigma_y+P_z\sigma_z$.
+
+Special case: $\rho = \frac12 (\bfone+\sigma_z) = \vert 0\rangle \langle 0\vert , \frac12 (1-\sigma_z) = \vert 1\rangle \langle 1\vert$.
+$\frac12 (\bfone \pm\sigma_x) = \vert \pm\rangle, \frac12 (1\pm\sigma_y) = \vert \pm i\rangle$.
+\item We can get $\vert \vec{P}\vert\leq 1$ from $\rho\leq \bfone$. $\vert \vec{P}\vert = 1 $ means pure state, $\vert \vec{P}\vert<1$ means mixed state.
+\end{itemize}
+\section{Two-qubit system}
+\subparagraph{}
+$\vert\psi\rangle_{AB} =  \vert 0\rangle_A \vert 0\rangle_B+\vert 1\rangle_A\vert 1\rangle_B = \vert+\rangle_A\vert +\rangle_B+\vert - \rangle_A\vert -\rangle_B$ has two representations. There are two cases to measure $\rho_A = \frac12 \bfone$.
+\subparagraph{Case 1:} How to get $\rho_A = \frac12 ( \vert 0\rangle \langle 0\vert+\vert 1\rangle\langle 1\vert)$ ?
+\begin{enumerate}
+
+\item Prepare $\vert0\rangle\vert 0\rangle+\vert 1\rangle\vert 1\rangle$
+\item Measure $B$ in $z=0$ and $z=1$
+\item Given $z$-measure result. $A=\vert 0\rangle$ or $\vert 1\rangle$.
+\end{enumerate}
+\subparagraph{Case 2: } How to get $\rho_A = \frac12 (\vert+\rangle\langle +\vert+\vert - \rangle\langle -\vert)$?
+\begin{enumerate}
+\item Prepare $\vert+\rangle\vert +\rangle+\vert - \rangle\vert -\rangle$
+\item measure $B$ in $x = \vert +\rangle$ and $x= \vert -\rangle$.
+\item Given $x$-measure results, $A = \vert +\rangle$ or $\vert -\rangle$
+\end{enumerate}
+
+\subparagraph{}
+Using classical coins, Alice prepare the qubits for Bob.
+
+1': Flip a coin, Head or Tail. prepare qubit $\vert 0\rangle$ or $\vert 1\rangle$, then $\rho_{1'} = \frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$
+
+1'',Flip a coin, prepare qubit $\vert +\rangle$ or $\vert -\rangle$, $\rho_{1''} = \frac12 \vert +\rangle\langle +\vert +\frac12 \vert -\rangle\langle -\vert$.
+
+Then $\rho_{1'} = \rho_{1''}$. From Bob's point of view, they are the same, although  Alice knows which of the two pure states it is. When Alice tells Bob the information of the state, the states collapses. (Information is physical; physics is informational.)
+
+Comment:  Given a pure state, we know every information in the system and can not change it by getting more information, since the entropy is already zero (not the case for general density matrix).
+
+\subparagraph{Coherence (classical mixture or superposition).}
+ $\vert\psi\rangle = \frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle), \vert \psi\rangle \langle \psi\vert = \frac12 \left[\begin{array}{cc}1 & 1\\1& 1\end{array}\right]$. If we measure in $x$ we always get the same.
+But it is different for $\frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$ (which can be distinguished by measuring in $z$).
+
+We prefer the pure state $\frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle)$ to generated randomness, because additional information can not change the state, while the other one can be attacked by measuring the entangled qubit.
+
+\section{State tomography}
+
+\subsection{POVM (Positive Operator-Valued Measure)}
+How to measure $\rho = \frac12 = (I+\vec{P}\cdot\vec{\sigma})$?
+\subparagraph{Measure states by PVM:}
+$\vert\psi\rangle_{AB} = a\vert 00\rangle+b\vert11\rangle$. $M_A\otimes I$. 
+The expectation 
+\begin{eqnarray*}
+\langle M_A\otimes I\rangle &= &\Tr(M_A\otimes I \vert \psi\rangle \langle\psi\vert) \\
+&=& _{AB}\langle\psi\vert M_A\otimes I_B\vert \psi\rangle_{AB} \\
+&=&\vert a\vert^2 \langle 0\vert M_A\vert 0\rangle +\vert b\vert^2 \langle 1\vert M_A\vert 1\rangle = \Tr(\rho_A M_A)
+\end{eqnarray*}
+\subparagraph{Measure density matrix by POVM:}
+Expectation $\langle M\rangle = \Tr(M\rho)$.
+
+$\{E_a\}$, (1) $E_a = E_a^\dagger$; (2) $\forall \vert\psi\rangle, \langle\psi\vert E_a\vert\psi\rangle\geq 0$;(3) $\sum_a E_a = 1$.
+
+The probability to get $a$ is $\Tr(E_a\rho)$.
+e.g. PVM, qubit, $z$-basis, $a = 0,1$. $E_0 = \vert 0\rangle\langle 0\vert , E_1 = \vert 1\rangle \langle1\vert$.
+
+PVM is the special case of POVM.
+\subsection{Measurement}
+Many copies (the system reproduces the same state).
+
+Measure in $x$-basis: $+, -$, $\Pr(\pm) = \Tr(\rho E_\pm) = \langle\pm\vert \rho\vert \pm\rangle = \frac12(1 \pm P_x)$ (since $\vert \pm \rangle$ is the eigen state of $\sigma_x$ and $\sigma_x$ is orthogonal to both $\sigma_y$ and $\sigma_z$).
+
+$\Pr(\pm i) =  \frac12(1\pm P_y), \Pr(0/1) = \frac12(1\pm P_z)$.
+
+Comment: How to measure arbitrary many qubit? (next lecture)
+
+
+\section{Super Operator}
+The unitary operation $\vert \psi\rangle_{AB}\to \vert \phi\rangle_{AB}$ does not necessarily indicate that $\rho_A\to E(\rho_A) = \rho_A'$ is also unitary.
+The super operation $\mathcal{E}(\rho) = \sum_a M_a\rho M_a^\dagger,$ in which $\sum_a M_a M_a^\dagger=I$. (read Preskill lecture notes for more details, related to quantum channel which we will discuss in later lectures). 
+
+\end{spacing}
+
+
+\end{document}
+
