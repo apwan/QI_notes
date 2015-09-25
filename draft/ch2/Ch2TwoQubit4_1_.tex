@@ -131,43 +131,29 @@ Here, we simplify denote it as
 \end{aligned}
 \end{equation}
 
+
+Here, we simplify denote it as
+\begin{equation} \label{2qubit:tensorsimp}
+\begin{aligned}
+\ket{\phi}\otimes\ket{\psi} = \ket{\phi}\ket{\psi}\\
+\end{aligned}
+\end{equation}
+
+\subsection{Trace}
 Trace $Tr(\rho)$: summation of the diagonal terms.
 
 Partial trace $Tr_B(\rho_{AB})$: Assume A is n-dimension state, B is m-dimension state, then $\rho_{AB}$ can be regarded as a $nm \times nm$ matrix. $Tr_B(\rho_{AB})$ is a $n\times n$ matrix, where $(Tr_B(\rho_{AB}))_{ij} = \sum_{k=1}^{m}(\rho_{AB})_{ik, jk}.$s Particularly, $Tr_B(A \otimes B) = Tr(B)A.$
 
-Hadamard transformation,
-\begin{equation} \label{eq:Hadamard}
+\subsection{Schmidt decomposition}
+For any pure state $\ket{\psi}_{AB}$ of a bipartite system, there are orthonormal bases $\{\ket{i}_A\}$ and $\{\ket{i¡®}_B\}$ such that:
+\begin{equation} \label{Schmidt decomposition}
 \begin{aligned}
-H &= \frac{1}{\sqrt2}
-    \begin{pmatrix}
-      1&1\\
-      1&-1
-    \end{pmatrix},
+\ket{\psi}_{AB}=\sum_i\sqrt{p_i}\ket{i}_A\otimes\ket{i'}_B.
 \end{aligned}
 \end{equation}
-rotates between the $X$ and $Z$ bases, because
-\begin{equation} \label{eq:xzHadamard}
-\begin{aligned}
-H\sigma_x H^\dag &= \frac{1}{2}
-    \begin{pmatrix}
-      1&1\\
-      1&-1
-    \end{pmatrix}
-    \begin{pmatrix}
-      0&1\\
-      1&0
-    \end{pmatrix}
-    \begin{pmatrix}
-      1&1\\
-      1&-1
-    \end{pmatrix}
-=   \begin{pmatrix}
-      1&0\\
-      0&-1
-    \end{pmatrix}
-= \sigma_z.
-\end{aligned}
-\end{equation}
+The subsystems $A$ and $B$ have the same eigenvalues, $p_i$s. The number of $p_i$s is called the Schmidt number of $\ket{\psi}_{AB}$. We denote that the pure state is a entangled state when the the Schmidt number is greater than one. It is easy to see that the Bell states are entangled states.
+
+
 
 
 \section{Two-qubit system}
@@ -321,7 +307,7 @@ where $\vec{P}=(P_x,P_y,P_z)$ is a vector and $|\vec{P}|\le1$. When $|\vec{P}|=1
 
 Quantum state tomography is the process of reconstructing the quantum state for a quantum system by proper measurements. The quantum state can be pure (vector) or in general mixed (density matrix). A set of measurements is called tomographically complete if it can uniquely identify the state. That is, the measurement outcomes are able to provide all the information about the state. In the classical physics, it corresponds to system calibration.
 
-Let us take qubit tomography for example. As given in Eq.~\eqref{eq:rhoBloch}, the $Z$ basis measure provides the information on $P_z$. By changing the $Z$ and $X$ basis, as given in Eq.~\eqref{eq:xzHadamard}, we can conclude that the $X$ basis measure provides the information on $P_x$. Similarly, the $Y$ basis measure provides the information on $P_y$. Thus, $X$, $Y$, and $Z$ measurements is tomographically complete for a qubit. Another way to put this is,
+Let us take qubit tomography for example. As given in Eq.~\eqref{eq:rhoBloch}, the $Z$ basis measure provides the information on $P_z$. By changing the $Z$ and $X$ basis, by the Hadamard transformation, we can conclude that the $X$ basis measure provides the information on $P_x$. Similarly, the $Y$ basis measure provides the information on $P_y$. Thus, $X$, $Y$, and $Z$ measurements is tomographically complete for a qubit. Another way to put this is,
 \begin{equation} \label{eq:rho2tomo}
 \begin{aligned}
 \rho &= \frac12[tr(\rho)\sigma_0+tr(\sigma_x\rho)\sigma_x+tr(\sigma_y\rho)\sigma_y+tr(\sigma_z\rho)\sigma_z]. \\
@@ -340,6 +326,25 @@ In another related concept, quantum process tomography, known quantum states are
 The general principle behind quantum state tomography is that by repeatedly performing many different measurements on quantum systems described by identical density matrices, frequency counts can be used to infer probabilities, and these probabilities are combined with Born's rule to determine a density matrix which fits the best with the observations.
 
 \section{Positive Operator-Valued Measure}
+For the bipartite state $\ket{\psi}_{AB}$ given in Eq.~\eqref{2qubit:2qubiteg}, if we only measure system $A$, the observable can be expressed as
+\begin{equation} \label{2qubit:jointmeasure}
+\begin{aligned}
+M_A\otimes I_B
+\end{aligned}
+\end{equation}
+where $M_A$ is a self-adjoint operator acting on system $A$. Then the expectation value of the measurement outcome is,
+\begin{equation} \label{2qubit:jointmeasureExp}
+\begin{aligned}
+\bra{\psi}M_A\otimes I_B\ket{\psi} &= (a^* \bra{0}_{A}\bra{0}_{B}+b^*\bra{1}_{A}\bra{1}_{B}) (M_A\otimes I_B) (a \ket{0}_{A}\ket{0}_{B}+b\ket{1}_{A}\ket{1}_{B}) \\
+&= |a|^2 \bra{0}M_{A}\ket{0}+|b|^2\bra{1}M_{A}\ket{1}. \\
+\end{aligned}
+\end{equation}
+Since we know that the density matrix of $\rho_A=|a|^2\ket{0}\bra{0}+|b|^2\ket{1}\bra{1}$, Eq.~\eqref{2qubit:jointmeasureExp} can be written as,
+\begin{equation} \label{2qubit:jointmeasureExprho}
+\begin{aligned}
+\langle M_A \rangle = tr(M_A\rho_A)
+\end{aligned}
+\end{equation}
 
 We can understands the difference between the Positive Operator-Valued Measure (POVM) and PVM with the same sense that a density matrix is to a pure state.  The POVM can be used to describe the effect of PVM acts on a large system.
 The operators $\{E_a\}$ form a complete set of Hermitian nonnegative operators and satisfy that:
@@ -348,6 +353,42 @@ The operators $\{E_a\}$ form a complete set of Hermitian nonnegative operators a
 \item Positivity :$\bra{\psi}E_A\ket{\psi}\ge0$.
 \item Completeness: $\sum_aE_a=I$.
 \end{enumerate}
+
+
+\section{quantum channel}
+The quantum channel is also called ``super operator". The super means that the map takes operators to operators, rather than vectors to vectors. Unitary evolution on $\mathcal{H}_A\otimes\mathcal{H}_B $ will not in general appear to be unitary if we restrict our attention to $\mathcal{H}_A$ alone. Rather, evolution in HA will be described by a quantum channel, (which can be inverted by another channel only if unitary). A general channel $\mathcal{E}$ has an operator-sum representation:
+\begin{equation} \label{eq:channel}
+\begin{aligned}
+\mathcal{E}(\rho)=\sum_aM_a\rho M_a^\dag,\\
+\sum_aM_a^\dag\rho M_a=I.\\
+\end{aligned}
+\end{equation}
+
+
+\section{Ensembles}
+A mixed state of a system A can be prepared as an ensemble of pure states in
+many different ways, all of which are experimentally indistinguishable if
+we observe system A alone.
+\begin{equation} \label{eq:Ensembles}
+\begin{aligned}
+\rho_A=\sum_ip_i\ket{\psi_i}\bra{\psi_i},\sum p_i=1.
+\end{aligned}
+\end{equation}
+
+For any such $\rho_A$,  we can construct a ¡°purification¡± of $\rho_A$, $\ket{\Psi_1}_{AB}$,
+\begin{equation} \label{eq:purification}
+\begin{aligned}
+\ket{\Psi_1}_{AB}=\sum_i \sqrt{p_i}\ket{\psi_i}_A\ket{\alpha_i}_B,
+\end{aligned}
+\end{equation}
+where $\{\ket{\alpha_i}_B\}$ are mutually orthogonal and normalized.
+The relation between two purifications, $\ket{\Psi_1}_{AB}$ and $\ket{\Psi_2}_{AB}$ , is given by,
+\begin{equation} \label{eq:purifications}
+\begin{aligned}
+\ket{\Psi_1}_{AB}=(I_A\otimes U_B)\ket{\Psi_2}_{AB},
+\end{aligned}
+\end{equation}
+the two states differ by an unitary change of basis acting in $\mathcal{H}_B$ alone.
 
 
 \section{Quantum Teleportation}
