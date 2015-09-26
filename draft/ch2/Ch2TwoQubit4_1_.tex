@@ -50,10 +50,10 @@ Two-qubit state, mixed state, Bloch ``ball", positive-operator valued measure (P
 \begin{enumerate}
 \item{state: ray.}
 \item{normalize state: vector.}
-\item{representation way: $\ket{u}=\cos{\frac{\theta}{2}}+e^{i\theta}\sin{\frac{\theta}{2}}$. (Bloch Sphere\footnote{No standard way to visualize two or more qubits system until now.})}
+\item{representation way: $\ket{u}=\cos{\frac{\theta}{2}}+e^{i\varphi}\sin{\frac{\theta}{2}}$. (Bloch Sphere\footnote{No standard way to visualize two or more qubits system until now.})}
 \item{density matrix: $\rho = \sum_i\lambda_i\ket{\phi_i}\bra{\phi_i}$.\footnote{why we can't distinguish $\ket{u}$ and $e^{i\theta}\ket{u}$? because $\ket{u}\bra{u}=e^{i\theta}\ket{u}\bra{u}e^{-i\theta}$. Their density matrices are always the same.}}
 \item{$\rho^{+} = \rho, Tr(\rho) = 1.$}
-\item{$\forall \ket{\phi}, \bra{\phi}\rho\ket{\phi} \geq 0$\footnote{By physical meaning of the measurement}.}
+\item{$\forall \ket{\phi}, \bra{\phi}\rho\ket{\phi} \geq 0$.\footnote{By physical meaning of the measurement}}
 \item{For pure qubit, Assume $\rho = \ket{\phi}\bra{\phi}$, we have $\rho^2 = \rho.$ Also, we can get the eigenvalues and eigenvectors of $\rho$ (Assume $\ket{\Phi}$ is orthogonal of $\ket{\phi}$): 
 \begin{equation}
 \begin{aligned}
@@ -229,7 +229,7 @@ Properties of a general density matrix
 \item
 self-adjoint: $\rho_A=\rho_A^\dag$
 \item
-positivity: for $\forall\ket{\psi}$, $\bra{\psi}\rho_A\ket{\psi}\ge0$
+positivity: $\forall\ket{\psi}$, $\bra{\psi}\rho_A\ket{\psi}\ge0$
 \item
 completeness: $Tr(\rho_A)=1$
 \end{enumerate}
@@ -350,7 +350,7 @@ We can understands the difference between the Positive Operator-Valued Measure (
 The operators $\{E_a\}$ form a complete set of Hermitian nonnegative operators and satisfy that:
 \begin{enumerate}
 \item Hermiticity: $E_a=E_a^\dag$.
-\item Positivity :$\bra{\psi}E_A\ket{\psi}\ge0$.
+\item Positivity :$\bra{\psi}E_a\ket{\psi}\ge0$.
 \item Completeness: $\sum_aE_a=I$.
 \end{enumerate}
 
@@ -360,7 +360,7 @@ The quantum channel is also called ``super operator". The super means that the m
 \begin{equation} \label{eq:channel}
 \begin{aligned}
 \mathcal{E}(\rho)=\sum_aM_a\rho M_a^\dag,\\
-\sum_aM_a^\dag\rho M_a=I.\\
+\sum_aM_a^\dag M_a=I.\\
 \end{aligned}
 \end{equation}
 
