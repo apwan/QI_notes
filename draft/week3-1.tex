@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{extarrows}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{mathrsfs}
+\usepackage[linesnumbered,boxed]{algorithm2e}  %for using box
+\usepackage{graphicx,float,wrapfig}     %for inserting figures etc.
+\usepackage{verbatim}   %for using the environment of comment
+\usepackage{multicol}    %for using the environment of multicolumn
+\usepackage{tikz}           %for convenient drawing
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usepackage{pdfpages}
+\usepackage[pdftex,colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+%BASIC INFO
+\newcommand{\StudentName}{Wu Yijie}
+\newcommand{\StudentClass}{JK30}
+\newcommand{\StudentNumber}{2013011314}
+\newcommand{\Class}{Quantum Information}
+\newcommand{\ClassInstructor}{Xiongfeng Ma}
+
+
+%%%% In case you need to adjust margins:
+\topmargin=-0.75in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.5in       %
+\headsep=0.10in         %
+
+%%%% Setup the header and footer
+\pagestyle{fancy}                                                       %
+                     %
+\chead{\Title\quad\firstxmark}  %
+\rhead{Page\ \thepage\ of\ \protect\pageref{LastPage}}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{}             %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{hwPro}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{hwSec}[1]%parts of homework problem
+  {% We put this space here to make sure we're not connected to the above.
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.2in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }   %note first letter 'A' capital!
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+\newcommand{\wtM}{\textcolor{white}{M}}  %for indent in before paragraphs
+\newcommand{\ud}{\mathrm{d}} %for derivative
+\newcommand{\cm}{\mathrm{\,cm}} %centimeter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Title}{Week 2}
+\newcommand{\DueDate}{September, 2015}
+
+
+%% Useful short-cut
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\bfone}{\mathbf{1}}
+\newcommand{\bra}[1]{\langle #1\vert}
+\newcommand{\ket}[1]{\vert #1\vert}
+\newcommand{\braket}[2]{\langle #1 \vert #2\rangle}
+\newcommand{\ketbra}[2]{\vert #1\rangle \langle #2\vert}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\StudentName\quad \StudentNumber}
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\{\large Instructed by \textit{\ClassInstructor}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \DueDate}}
+\date{}
+\begin{document}
+
+\begin{spacing}{1.2}
+\author{\textbf{\StudentName}\qquad\StudentClass\quad\StudentNumber}
+\maketitle \thispagestyle{empty}
+\section{Homework 1 due}
+Hand in to MMW-S323 mail box 1st floor.
+\section{Tomography}
+$\rho = \sum_x p(x)\ketbra{x} \otimes f(x)$, e.g. $\frac12 \left[ \ketbra{0} \otimes \rho_0 + \ketbra{1}\otimes \rho_1\right]$.
+
+Measure $x,y,z$ for $\rho = \frac12 (I+\vec{P}\cdot\vec{\sigma})$. $P_i = \Tr(\rho\sigma_i)(i = x,y,z)$.
+\begin{gather*}
+\rho = \frac12 \left( \Tr(\rho I)I + \sum_{i=x,y,z}\Tr(\sigma_i \rho)\sigma_i\right)
+\end{gather*}
+
+\subparagraph{two-qubit system.}
+Use $\sigma_i\otimes\sigma$ to measure $\rho_{AB}$. 
+
+For $\frac{1}{\sqrt2}(\ket{00}_{AB}\pm \ket{11}_{AB}), \frac{1}{\sqrt2}(\ket{01}\pm\ket{10})$ (can not be written as tensor product),
+
+$\rho_A = \frac{1}{2}[1 0; 0 1] = \rho_B, \rho_{AB} = \rho_A\otimes\rho_B = \left(\begin{array}{cccc}
+&&&\\
+&&&\\
+&&&\\
+&&&
+\end{array}\right)_{4\times 4} = \sum_{i,j\in\{I,x,y,z\}}P_{ij}\sigma_i\otimes\sigma_j$.
+
+
+Beccause $\Tr{\rho_{AB}} = \sum_{i,j}P_{ij}\Tr{\sigma_i\otimes\sigma_j} = P_{II}\Tr(\sigma_I)\Tr(\sigma_I) = 4P_{II}=1$, $P_{II} = \frac14$.
+
+$P_{ij} = \Tr(\sigma_{i'j'}P_{i'j'}(\sigma_{i'}\otimes\sigma_{j'})(\sigma_i\otimes\sigma_j)) = \Tr(\rho\sigma_i\otimes\sigma_j)$.
+
+\subparagraph{n-qubit system.}
+$\bigotimes_{v_i=\in\{I,x,y,z\}} \sigma_{v_i}, \rho = \sigma_{v_i}\Tr(\rho\bigotimes_{v_i}\sigma_{v_i})\bigotimes(\sigma_{v_i}).$
+$3^n$ measurement should be performed, but the DOF is less, so this tomography is not optimal. 
+
+\subparagraph{Individual measurement:} $4^n$ terms (nothing for $I$).
+\subparagraph{Joint measurement (BSM: Bell-state measurement):} $\phi^{\pm} = \ket{00}\pm\ket{11}, \psi^{\pm} = \ket{01}\pm\ket{10}$
+
+Hamard $H = \frac{1}{\sqrt2}[1, 1; 1, -1]$ operation, C-NOT operation (control-NOT, flip target qubit when input control qubit $\ket{1}$, e.g. $\ket{1}\ket{0}\mapsto\ket{1}\ket{1})$) is $4\times 4$ unitary matrix:
+\begin{gather*}
+\left(\begin{array}{cccc}
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1\\
+0&0&1&0
+\end{array}\right).
+\end{gather*}
+$\ket{00}+\ket{11}\underrightarrow{C-NOT}\ket{+}\ket{0} \underrightarrow{H\times I} \ket{0}\ket{0}$, $\ket{00}-\ket{11}\underrightarrow{C-NOT, H\otimes I} \ket{1}\ket{0}, \ket{01}+\ket{10}\mapsto \ket{0}\ket{1}, \ket{01}-\ket{10}\mapsto \ket{1}\ket{1}, \ket{00}\mapsto\ket{+}\ket{0}$. Then measure in $z$-basis.
+
+\subparagraph{Purification.} Given $\rho_A = \frac{1}{2}(\ketbra{0}+\ketbra{1})$, find $\Psi_{AB}$ s.t. $\Tr_{AB} = \rho_A$. Answer: $\ket{00}+\ket{11}$, not unique, but all purification can be linked by linear operation. e.g.
+$ \left(\begin{array}{cc}
+\frac49 &\frac{1}{100}\\
+\frac{1}{100}&\frac59\\
+\end{array}\right)$
+
+For diagonal terms, $\sqrt{\frac49}\ket{0}\ket{0}+\sqrt{\frac59}\ket{1}$. For general matrix, extends $\rho_A$ to pure $\rho_{AB}$ (think about it before checking the book).
+
+\section{Schmidt decomposition.}
+For pure $\ket{\psi}_{AB} = \sum\sqrt{p_i}\ket{i}\bra{i'}$, you can always find $\rho_A = \rho_B$ in all basis ($\rho_A = \Tr_B(\psi_{AB})$)
+
+\end{spacing}
+
+
+\end{document}
+
