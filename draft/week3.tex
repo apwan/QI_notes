@@ -108,8 +108,15 @@
 \begin{spacing}{1.2}
 \author{\textbf{\StudentName}\qquad\StudentClass\quad\StudentNumber}
 \maketitle \thispagestyle{empty}
-\section{Homework 1 due}
+\section{Homework 1 due on Oct. 12}
 Hand in to MMW-S323 mail box 1st floor.
+
+Problem 3(b) add ``with 100\% probability".
+
+Problem 2(b) updated: function of matrix $f(\sigma) = \sum_i f(\lambda_i) \ketbra{\lambda_i}{\lambda_i} $.
+
+Contents: Purification, joint measure, Bell basis/states, C-NOT, BSM, Tomography, Bell's inequality.
+
 \section{Tomography}
 $\rho = \sum_x p(x)\ketbra{x} \otimes f(x)$, e.g. $\frac12 \left[ \ketbra{0} \otimes \rho_0 + \ketbra{1}\otimes \rho_1\right]$.
 
@@ -159,11 +166,50 @@ $ \left(\begin{array}{cc}
 \frac{1}{100}&\frac59\\
 \end{array}\right)$
 
-For diagonal terms, $\sqrt{\frac49}\ket{0}\ket{0}+\sqrt{\frac59}\ket{1}$. For general matrix, extends $\rho_A$ to pure $\rho_{AB}$ (think about it before checking the book).
+For diagonal terms, $\sqrt{\frac49}\ket{0}\ket{0}+\sqrt{\frac59}\ket{1}$. For general matrix, extends $\rho_A$ to pure $\rho_{AB}$.
+Choose a basis such that $\ket{\psi_{AB}} = \sum \sqrt{x_i}\ket{i}_A\ket{i}_B$ is diagonalized.
 
-\section{Schmidt decomposition.}
+Denote eigenvalues of $\rho$ as $\lambda_0,\lambda_1$, eigen states $\ket{\psi_0}, \ket{\psi_1}$. $\rho' = \mathrm{diag}(\lambda_0,\lambda_1)$. $\rho = \lambda_0\ketbra{\psi_0}{\psi_0}+\lambda_1\ketbra{\psi_0}{\psi_0}$, then $\phi_{AB} = \lambda_0\ket{\psi_0}_A\ket{0}_B+\\lambda_1\ket{\psi_1}_A\ket{1}_B$. Comment: Given any mixed states, you can always find a larger Hilbert space such that the density matrix is purified (not unique, but there are relations between such purification).
+
+
+\subparagraph{Schmidt decomposition.}
 For pure $\ket{\psi}_{AB} = \sum\sqrt{p_i}\ket{i}\bra{i'}$, you can always find $\rho_A = \rho_B$ in all basis ($\rho_A = \Tr_B(\psi_{AB})$)
 
+\subparagraph{Bell's inequality (John Bell 1964).} Refer to Jhon Preskill notes, Hoi-Kwong Lo notes. Local hidden variables can not express any quantum outcomes. Randomness is in the nature of quantum mechanics.
+
+
+\section{XOR Games}
+
+Separate boxes (e.g., 16 l.y. away), local referees each give Alice or Bob random variables. $x\in\{0,1\}\to [A] \to a\in\{0,1\}$; $y\in\{0,1\}\to [B]\to b\in\{0,1\}$. In order to win, Alice and Bob need to make sure $a\oplus b = x\cdot y$. No communication in the games, but before the game they can discuss the strategy.
+
+Analysis: $\Pr[x\cdot y = 0] = \frac{3}{4}, \Pr[x\cdot y = 1] = \frac{1}{4}$.
+
+ Random strategy can win with probability $\frac{1}{2}$. Always outputs same result, $a\oplus b = 0$, win with probability $\frac{3}{4}$.
+ 
+Proof: No strategy achieves larger probability than $\frac34$. Maximize $S = \sum_{a,b,x,y} (-1)^{a\oplus b+ x\cdot y}\Pr[a,b\vert x,y]$. Note that $a$ can not depend on $y$ and $b$ can not depend on $x$, so $\Pr[a,b\vert x,y] = \Pr[a\vert x]\Pr[b\vert y]$.
+\begin{eqnarray*}
+S&=& \sum_{a,b,x,y}(-1)^{a+b+x\cdot y}\Pr[a\vert x]\Pr[b\vert y]\\
+&=& \sum_{x,y} \sum_{a,x}(-1)^a\Pr[a\vert x]\sum_{b,y}(-1)^b \Pr[b\vert y](-1)^{xy}\\
+&=& \sum_{a,x}(-1)^a \Pr[a\vert x]\sum_{b}(-1)^b\left[ \Pr[b\vert 0]+\Pr[b\vert 1](-1)^x \right]
+\end{eqnarray*}
+
+Case by case, denote the conditional expectations $A(x) = \Pr[a =0\vert x] -\Pr[a=1\vert x], B(y) = \Pr[b=0\vert y]-\Pr[b=1\vert y], A,B\in[-1,+1]$. Then $\Tr(\rho \sigma_z)\sim A$
+\begin{enumerate}
+\item $x\cdot y=0$: $\sum_{a,b} (-1)^{a+b}\Pr[a\vert x]\Pr[b\vert y] = \sum_{a}(-1)^a \Pr[a\vert x] \sum_b (-1)^b \Pr[b\vert y]$.
+\item $x = y = 1$: $-\sum_{a}(-1)^a \Pr[a\vert 1] \sum_b (-1)^b \Pr[b\vert 1]$.
+\end{enumerate} 
+$S = A(0)B(0)+A(1)B(0)+A(0)B(1)-A(1)B(1) = A(0)[B(0)+B(1)]+A(1)[B(0)-B(1)] \leq 2$. Use probabilistic explanation, treat $A,B$ as random variables in $\{-1,1\}$. At least two terms are 0's. Or solve by linear optimization for continuous $A,B$ in $[-1,1]$.
+
+
+Relate classical prob to quantum measurement. $x=0: A_0, \rho_A$. $\Tr(A_0 \rho_A) = A(0)$. Similar for $x=1, A_1; y=0, B_0; y=1, B_1$.
+
+$\psi_{AB} = \ket{00}+\ket{11}$
+$A_0 = \sigma_z, A_1 = \sigma_x, B_0 = \frac1{\sqrt2} (\sigma_x+\sigma_z), B_1 = \frac1{\sqrt2} (\sigma_x-\sigma_z)$.
+
+The expectation $S = \langle A_0B_0 +A_0B_1+A_1B_0-A_1B_1\rangle$.
+$\langle A_0 B_0\rangle = \Tr(\rho_{AB}\sigma_x\otimes \frac{\sigma_x+\sigma_z}{\sqrt{2}}) = \frac{1}{\sqrt2}\langle \sigma_x\otimes\sigma_x\rangle+\frac{1}{\sqrt2}\langle \sigma_x\otimes\sigma_z \rangle = \frac{1}{\sqrt2}+0$.
+
+So $S = \frac{\sqrt2}{2}\times 3-(-\frac{\sqrt2}{2}) = 2\sqrt{2}>2$. (Why contradicts the classical results?)
 \end{spacing}
 
 
