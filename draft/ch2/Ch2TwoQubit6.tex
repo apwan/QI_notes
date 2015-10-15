@@ -68,6 +68,33 @@ Two-qubit state, mixed state, Bloch ``ball", positive-operator valued measure (P
 
 \item{$\bra{\psi}M\ket{\psi} = Tr(\bra{\psi}M\ket{\psi}) = Tr(M\ket{\psi}\bra{\psi}) = Tr(M\rho).$\footnote{$Tr(AB)=\sum_{i}\sum_j a_{ij}b_{ji} = \sum_{i}\sum_j b_{ij}a_{ji} = Tr(BA)$.}}
 \end{enumerate}
+\subsection{Bloch sphere}
+A useful representation of the state of a single qubit is the Bloch sphere representation. Since the overall phase is irrelevant, a pure state of a qubit can be written as
+\begin{equation} \label{eq:BlochSphere}
+\begin{aligned}
+\ket{u} = \cos\frac{\theta}{2}\ket{0}+e^{i\varphi}\sin\frac{\theta}{2}\ket{1}.
+\end{aligned}
+\end{equation}
+Therefore, it is convenient to represent it as a vector living the surface of a unit sphere with the spherical coordinate $(r=1,\theta,\varphi)$.
+
+\begin{figure}[tbh]
+\centering \resizebox{4cm}{!}{\includegraphics{epsBlochSphere.eps}}
+\caption{Bloch sphere.} \label{fig:BlochSphere}
+\end{figure}
+
+In general, a qubit might be in a mixed state, and then it will be within the Bloch sphere instead on the surface. In general, the density matrix of a qubit can be written as
+\begin{equation} \label{eq:rhoBloch}
+\begin{aligned}
+\rho &= \frac12(\sigma_0+\vec{P}\cdot \vec{\sigma}) \\
+&= \frac12
+    \begin{pmatrix}
+      1+P_z&P_x-iP_y\\
+      P_x+iP_y&1-P_z
+    \end{pmatrix}
+\end{aligned}
+\end{equation}
+where $\vec{P}=(P_x,P_y,P_z)$ is a vector and $|\vec{P}|\le1$. When $|\vec{P}|=1$, Eq.~\eqref{eq:rhoBloch} represents a pure qubit.
+
 
 \section{Notations}
 Matrix tensor product $\otimes$,
@@ -148,19 +175,6 @@ Partial trace $Tr_B(\rho_{AB})$: Assume A is n-dimension state, B is m-dimension
 Particularly, $Tr_B(A \otimes B) = Tr(B)A.$
 
 
-
-\subsection{Schmidt decomposition}
-For any pure state $\ket{\psi}_{AB}$ of a bipartite system, there are orthonormal bases $\{\ket{i}_A\}$ and $\{\ket{i¡®}_B\}$ such that:
-\begin{equation} \label{Schmidt decomposition}
-\begin{aligned}
-\ket{\psi}_{AB}=\sum_i\sqrt{p_i}\ket{i}_A\otimes\ket{i'}_B.
-\end{aligned}
-\end{equation}
-The subsystems $A$ and $B$ have the same eigenvalues, $p_i$s. The number of $p_i$s is called the Schmidt number of $\ket{\psi}_{AB}$. We denote that the pure state is a entangled state when the the Schmidt number is greater than one. It is easy to see that the Bell states are entangled states.
-
-
-
-
 \section{Two-qubit system}
 
 \subsection{an interesting ``paradox"}
@@ -230,7 +244,47 @@ $$
 $$
 
 
+\subsection{Density matrix of subsystem}
 
+%%%%%%%%%%
+%% From week2-2
+For a bipartite system $\rho_{AB}$, the density matrix of subsystem A can be denoted as $Tr_B
+(\rho_{AB})$. For example, $\vert\psi\rangle_{AB} = a\vert 0\rangle_A \vert 0\rangle_B + b \vert 1\rangle_A \vert 1\rangle_B$. Then $\rho_A = \Tr_B(\vert\psi\rangle_{AB}\langle\psi\vert_{AB}) = aa^* \vert 0\rangle \langle 0\vert + bb^*\vert 1\rangle \langle 1\vert$. In general, there are some properties of $\rho_A$:
+\begin{itemize}
+\item $\rho_A^\dagger = \rho_A$.
+\item $\rho_A \geq 0$.
+\item $\Tr(\rho_A) = 1$.
+\end{itemize}
+
+Comment: If $\rho_A$ is pure state, then $\rho_A^2 = \rho_A$, the purity $\Tr(\rho_A^2)\leq 1 \Rightarrow \Tr(\rho_A^2) =1 $.
+\subparagraph{An example}
+$\vert\psi\rangle_{AB} =  \vert 0\rangle_A \vert 0\rangle_B+\vert 1\rangle_A\vert 1\rangle_B = \vert+\rangle_A\vert +\rangle_B+\vert - \rangle_A\vert -\rangle_B$ has two representations. There are two cases to measure $\rho_A = \frac12 \bfone$.
+\subparagraph{Case 1:} How to get $\rho_A = \frac12 ( \vert 0\rangle \langle 0\vert+\vert 1\rangle\langle 1\vert)$ ?
+\begin{enumerate}
+
+\item Prepare $\vert0\rangle\vert 0\rangle+\vert 1\rangle\vert 1\rangle$
+\item Measure $B$ in $z=0$ and $z=1$
+\item Given $z$-measure result. $A=\vert 0\rangle$ or $\vert 1\rangle$.
+\item $\rho_{A1} = \frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$.
+\end{enumerate}
+\subparagraph{Case 2:} How to get $\rho_A = \frac12 (\vert+\rangle\langle +\vert+\vert - \rangle\langle -\vert)$?
+\begin{enumerate}
+\item Prepare $\vert+\rangle\vert +\rangle+\vert - \rangle\vert -\rangle$
+\item measure $B$ in $x = \vert +\rangle$ and $x= \vert -\rangle$.
+\item Given $x$-measure results, $A = \vert +\rangle$ or $\vert -\rangle$
+\item $\rho_{A2} = \frac12 \vert +\rangle\langle +\vert +\frac12 \vert -\rangle\langle -\vert$.
+\end{enumerate}
+
+\subparagraph{}
+$\rho_{A1} = \rho_{A2}$. From Alice's point of view, they are the same, although  Bob knows which of the two pure states it is. When Bob tells Alice the information of the state, the states collapses. (Information is physical; physics is informational.)
+
+\subparagraph{Coherence (classical mixture or superposition).}
+ $\vert\psi\rangle = \frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle), \vert \psi\rangle \langle \psi\vert = \frac12 \left[\begin{array}{cc}1 & 1\\1& 1\end{array}\right]$. If we measure in $x$ we always get the same.
+But it is different for $\frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$ (which can be distinguished by measuring in $z$).
+
+We prefer the pure state $\frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle)$ to generated randomness, because additional information can not change the state, while the other one can be attacked by measuring the entangled qubit.
+
+Comment:  Given a pure state, we know every information in the system and can not change it by getting more information, since the entropy is already zero (not the case for general density matrix).
 \subsection{The properties for general density matrix}
 In general, the state is represented by a density operator.
 In the case where the state of the subsystem is a ray, and we say that the state is
@@ -260,8 +314,7 @@ The subsystems $A$ and $B$ have the same eigenvalues, $p_i$s. The number of $p_i
 
 
 %% week3
-For pure $\ket{\psi}_{AB} = \sum\sqrt{p_i}\ket{i}\bra{i'}$, you can always find $\rho_A = \rho_B$ in all basis ($\rho_A = \Tr_B(\psi_{AB})$)
-
+For pure $\ket{\psi}_{AB}x$, you can always find $\rho_A = \rho_B$ in any basis of $\rho_A$.
 
 \subsection{Bell basis}
 The dimension of the 2-qubit Hilbert space is 4. Thus, there are 4 basis states. Bell state basis is widely used, especially for the case involving entanglement. The 4 Bell states in the $Z$ basis are,
@@ -295,33 +348,7 @@ in the $Y$ basis are
 Many interesting simple quantum information phenomenons come with Bell states, such as Bell's inequality, Teleportation, super dense coding, quantum key distribution, and Deutsch's algorithm.
 
 
-\subsection{Bloch sphere and qubit tomography}
-A useful representation of the state of a single qubit is the Bloch sphere representation. Since the overall phase is irrelevant, a pure state of a qubit can be written as
-\begin{equation} \label{eq:BlochSphere}
-\begin{aligned}
-\ket{u} = \cos\frac{\theta}{2}\ket{0}+e^{i\varphi}\sin\frac{\theta}{2}\ket{1}.
-\end{aligned}
-\end{equation}
-Therefore, it is convenient to represent it as a vector living the surface of a unit sphere with the spherical coordinate $(r=1,\theta,\varphi)$.
-
-\begin{figure}[tbh]
-\centering \resizebox{4cm}{!}{\includegraphics{epsBlochSphere.eps}}
-\caption{Bloch sphere.} \label{fig:BlochSphere}
-\end{figure}
-
-In general, a qubit might be in a mixed state, and then it will be within the Bloch sphere instead on the surface. In general, the density matrix of a qubit can be written as
-\begin{equation} \label{eq:rhoBloch}
-\begin{aligned}
-\rho &= \frac12(\sigma_0+\vec{P}\cdot \vec{\sigma}) \\
-&= \frac12
-    \begin{pmatrix}
-      1+P_z&P_x-iP_y\\
-      P_x+iP_y&1-P_z
-    \end{pmatrix}
-\end{aligned}
-\end{equation}
-where $\vec{P}=(P_x,P_y,P_z)$ is a vector and $|\vec{P}|\le1$. When $|\vec{P}|=1$, Eq.~\eqref{eq:rhoBloch} represents a pure qubit.
-
+\subsection{Qubit tomography}
 Quantum state tomography is the process of reconstructing the quantum state for a quantum system by proper measurements. The quantum state can be pure (vector) or in general mixed (density matrix). A set of measurements is called tomographically complete if it can uniquely identify the state. That is, the measurement outcomes are able to provide all the information about the state. In the classical physics, it corresponds to system calibration.
 
 Let us take qubit tomography for example. As given in Eq.~\eqref{eq:rhoBloch}, the $Z$ basis measure provides the information on $P_z$. By changing the $Z$ and $X$ basis, by the Hadamard transformation, we can conclude that the $X$ basis measure provides the information on $P_x$. Similarly, the $Y$ basis measure provides the information on $P_y$. Thus, $X$, $Y$, and $Z$ measurements is tomographically complete for a qubit. Another way to put this is,
@@ -341,58 +368,6 @@ where the sum is over all possible the identity and Pauli matrices.
 In another related concept, quantum process tomography, known quantum states are used to probe a quantum process to find out how the process can be described. Similarly, quantum measurement tomography works to find out what measurement is being performed.
 
 The general principle behind quantum state tomography is that by repeatedly performing many different measurements on quantum systems described by identical density matrices, frequency counts can be used to infer probabilities, and these probabilities are combined with Born's rule to determine a density matrix which fits the best with the observations.
-
-
-
-%%%%%%%%%%
-%% From week2-2
-\begin{itemize}
-\item $\rho_A = \Tr_B(\rho_{AB})$, e.g. $\vert\psi\rangle_{AB} = a\vert 0\rangle_A \vert 0\rangle_B + b \vert 1\rangle_A \vert 1\rangle_B$. Then $\rho_A = \Tr_B(\vert\psi\rangle_{AB}\langle\psi\vert_{AB}) = aa^* \vert 0\rangle \langle 0\vert + bb^*\vert 1\rangle \langle 1\vert$ 
-\item Property: (1)$\rho_A^\dagger = \rho_A$; (2)$\rho_A\geq 0$(when diagonalized) (3)$\Tr(\rho_A) =1 $ (pure state)
-
-Comment: If $\rho_A$ is pure state, then $\rho_A^2 = \rho_A$, the purity $\Tr(\rho_A^2)\leq 1 \Rightarrow \Tr(\rho_A^2) =1 $.
-\item Pauli matrices: $\sigma_x,\sigma_y,\sigma_z,\mathbf{I}$. $\rho = \frac{1}{2}(\mathbf{I}+\vec{P}\cdot \vec{\sigma})$. $\vec{P}\cdot\vec{\sigma} = P_x\sigma_x + P_y\sigma_y+P_z\sigma_z$.
-
-Special case: $\rho = \frac12 (\bfone+\sigma_z) = \vert 0\rangle \langle 0\vert , \frac12 (1-\sigma_z) = \vert 1\rangle \langle 1\vert$.
-$\frac12 (\bfone \pm\sigma_x) = \vert \pm\rangle, \frac12 (1\pm\sigma_y) = \vert \pm i\rangle$.
-\item We can get $\vert \vec{P}\vert\leq 1$ from $\rho\leq \bfone$. $\vert \vec{P}\vert = 1 $ means pure state, $\vert \vec{P}\vert<1$ means mixed state.
-\end{itemize}
-
-\subparagraph{}
-$\vert\psi\rangle_{AB} =  \vert 0\rangle_A \vert 0\rangle_B+\vert 1\rangle_A\vert 1\rangle_B = \vert+\rangle_A\vert +\rangle_B+\vert - \rangle_A\vert -\rangle_B$ has two representations. There are two cases to measure $\rho_A = \frac12 \bfone$.
-\subparagraph{Case 1:} How to get $\rho_A = \frac12 ( \vert 0\rangle \langle 0\vert+\vert 1\rangle\langle 1\vert)$ ?
-\begin{enumerate}
-
-\item Prepare $\vert0\rangle\vert 0\rangle+\vert 1\rangle\vert 1\rangle$
-\item Measure $B$ in $z=0$ and $z=1$
-\item Given $z$-measure result. $A=\vert 0\rangle$ or $\vert 1\rangle$.
-\end{enumerate}
-\subparagraph{Case 2: } How to get $\rho_A = \frac12 (\vert+\rangle\langle +\vert+\vert - \rangle\langle -\vert)$?
-\begin{enumerate}
-\item Prepare $\vert+\rangle\vert +\rangle+\vert - \rangle\vert -\rangle$
-\item measure $B$ in $x = \vert +\rangle$ and $x= \vert -\rangle$.
-\item Given $x$-measure results, $A = \vert +\rangle$ or $\vert -\rangle$
-\end{enumerate}
-
-\subparagraph{}
-Using classical coins, Alice prepare the qubits for Bob.
-
-1': Flip a coin, Head or Tail. prepare qubit $\vert 0\rangle$ or $\vert 1\rangle$, then $\rho_{1'} = \frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$
-
-1'',Flip a coin, prepare qubit $\vert +\rangle$ or $\vert -\rangle$, $\rho_{1''} = \frac12 \vert +\rangle\langle +\vert +\frac12 \vert -\rangle\langle -\vert$.
-
-Then $\rho_{1'} = \rho_{1''}$. From Bob's point of view, they are the same, although  Alice knows which of the two pure states it is. When Alice tells Bob the information of the state, the states collapses. (Information is physical; physics is informational.)
-
-Comment:  Given a pure state, we know every information in the system and can not change it by getting more information, since the entropy is already zero (not the case for general density matrix).
-
-\subparagraph{Coherence (classical mixture or superposition).}
- $\vert\psi\rangle = \frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle), \vert \psi\rangle \langle \psi\vert = \frac12 \left[\begin{array}{cc}1 & 1\\1& 1\end{array}\right]$. If we measure in $x$ we always get the same.
-But it is different for $\frac12 \vert 0\rangle\langle 0\vert +\frac12 \vert 1\rangle\langle 1\vert$ (which can be distinguished by measuring in $z$).
-
-We prefer the pure state $\frac{1}{\sqrt2}(\vert 0\rangle+\vert 1\rangle)$ to generated randomness, because additional information can not change the state, while the other one can be attacked by measuring the entangled qubit.
-
-
-
 
 \section{Positive Operator-Valued Measure}
 For the bipartite state $\ket{\psi}_{AB}$,
