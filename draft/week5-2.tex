@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{extarrows}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{mathrsfs}
+\usepackage[linesnumbered,boxed]{algorithm2e}  %for using box
+\usepackage{graphicx,float,wrapfig}     %for inserting figures etc.
+\usepackage{verbatim}   %for using the environment of comment
+\usepackage{multicol}    %for using the environment of multicolumn
+\usepackage{tikz}           %for convenient drawing
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usepackage{pdfpages}
+\usepackage[pdftex,colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+%BASIC INFO
+\newcommand{\StudentName}{Wu Yijie}
+\newcommand{\StudentClass}{JK30}
+\newcommand{\StudentNumber}{2013011314}
+\newcommand{\Class}{Quantum Information}
+\newcommand{\ClassInstructor}{Xiongfeng Ma}
+
+
+%%%% In case you need to adjust margins:
+\topmargin=-0.75in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.5in       %
+\headsep=0.10in         %
+
+%%%% Setup the header and footer
+\pagestyle{fancy}                                                       %
+                     %
+\chead{\Title\quad\firstxmark}  %
+\rhead{Page\ \thepage\ of\ \protect\pageref{LastPage}}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{}             %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{hwPro}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{hwSec}[1]%parts of homework problem
+  {% We put this space here to make sure we're not connected to the above.
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.2in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }   %note first letter 'A' capital!
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+\newcommand{\wtM}{\textcolor{white}{M}}  %for indent in before paragraphs
+\newcommand{\ud}{\mathrm{d}} %for derivative
+\newcommand{\cm}{\mathrm{\,cm}} %centimeter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Title}{Week 2}
+\newcommand{\DueDate}{September, 2015}
+
+
+%% Useful short-cut
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\bfone}{\mathbf{1}}
+\newcommand{\bra}[1]{\langle #1\vert}
+\newcommand{\ket}[1]{\vert #1\rangle}
+\newcommand{\braket}[2]{\langle #1 \vert #2\rangle}
+\newcommand{\ketbra}[2]{\vert #1\rangle \langle #2\vert}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\StudentName\quad \StudentNumber}
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\{\large Instructed by \textit{\ClassInstructor}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \DueDate}}
+\date{}
+\begin{document}
+
+\begin{spacing}{1.2}
+\author{\textbf{\StudentName}\qquad\StudentClass\quad\StudentNumber}
+\maketitle \thispagestyle{empty}
+\section{Last Lecture}
+Bell's inequality. Loopholes.
+
+Non-local correlation (entanglement) can not be used to communicate. Signaling is stronger.
+
+Hardmard transformation $H: \ket{0}\to \ket{+}, \ket{1}\to\ket{-}$.
+
+C-NOT: diag($I_2,\sigma_x$).
+
+Four Bell states: $\ket{00}\pm\ket{11},\ket{01}\pm\ket{10}$.
+
+\section{Quantum Circuit}
+$H$ and C-NOT: $\ket0 \otimes \ket1 \to \ket{00}+\ket{11}$.
+
+\subsection{Bell-state measure (BSM)}
+$\ket{00}\pm\ket{11}\to_{CNOT}\ket{\pm}\ket0$. $\ket{01}\pm\ket{10}\to_{CNOT}\ket{\pm}\ket{1}$.
+
+\subsection{Teleportation (quantum channel)}
+Super dense coding: e.g., transfer 2 (classical) bit information by using the quantum channel only once (between Earth and Mars)
+
+Alice can perform $\sigma_x,\sigma_z, \sigma_z\sigma_x=\sigma_y$ on her share of qubit (start from $\ket{00}+\ket{11}$).
+
+one qubit + one ebit (entangled qubit) $\geq$ one cbit (classical bit), help increase channel capacity.
+
+two cbit + 1ebit $\geq$ one qubit.
+
+Without quantum channel, use classical channel. For pure $\ket{\psi} = a\ket0 +b\ket1$, just transfer $a$ (require too many bit).
+
+We want to transfer faithfully (assume there are already some ebits, e.g. $\ket\phi =\ket{00}+\ket{11}$). Perform BSM on \begin{gather*}
+\ket{psi}\ket{\phi} = (\ket{00}+\ket{11})(a\ket0 + b\ket1) - b\ket{001} - a\ket{110} + (\ket{01}+\ket{10})(a\ket1 + b\ket{0}) - b\ket{010}-a\ket{101}\\
+=\sum(\ket{00}\pm\ket{11})(a\ket0 \pm b\ket1) + \sum(\ket{01}\pm \ket{10})(a\ket1 \pm b\ket0).
+\end{gather*}
+Strong symmetry. The BSM will project the joint state to one of the Bell-state with Bob's share of qubit containing the information of $a,b$. Thus the qubit can be transfered faithfully when Alice project to $\ket{00}+\ket{11}$. Remote state preparation if Alice project to other state.
+
+Simper way if Alice knows $a,b$. Alice: $\sigma_z$, Bob: $\sigma_x/ \sigma_I$. Alice: X, Bob: $\sigma_z$.
+
+Exercise: Perform $H\otimes H$ to all the four Bell states (two unchanged, two swapped).
+
+$\ket{00}+\ket{11} = \ket{\psi\psi}+\ket{\psi^\perp \psi^\perp}$. Then Bob perform $\ketbra{\psi^\perp}{\psi}+\ketbra{\psi}{\psi^\perp}$ (depend on $a,b$).
+
+
+Construct universal NOT gate. (Does not exist unless $a,b\in\mathbb{R}$!)  So there is failure rate.
+
+If not real, $\ket{00}+\ket{11}\neq \ket{+i+i}+\ket{-i-i}$, but still one of the Bell-state.
+
+$\ket{01}-\ket{10}$ can not contain $\ket{\psi\psi}$, but contain $\ket{\psi \psi^\perp}$. Spin coupling: Singlet, triplet
+
+
+
+\end{spacing}
+
+
+\end{document}
+
