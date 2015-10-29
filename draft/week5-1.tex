@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{extarrows}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{mathrsfs}
+\usepackage[linesnumbered,boxed]{algorithm2e}  %for using box
+\usepackage{graphicx,float,wrapfig}     %for inserting figures etc.
+\usepackage{verbatim}   %for using the environment of comment
+\usepackage{multicol}    %for using the environment of multicolumn
+\usepackage{tikz}           %for convenient drawing
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usepackage{CJK}
+\usepackage{pdfpages}
+\usepackage[pdftex,colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+%BASIC INFO
+\newcommand{\StudentName}{Li Chenxing}
+\newcommand{\StudentClass}{JK30}
+\newcommand{\StudentNumber}{2013012479}
+\newcommand{\Class}{Quantum Information}
+\newcommand{\ClassInstructor}{Mile Gu}
+
+
+%%%% In case you need to adjust margins:
+\topmargin=-0.75in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.5in       %
+\headsep=0.10in         %
+
+%%%% Setup the header and footer
+\pagestyle{fancy}                                                       %
+                     %
+\chead{\Title\quad\firstxmark}  %
+\rhead{Page\ \thepage\ of\ \protect\pageref{LastPage}}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{}             %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{hwPro}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{hwSec}[1]%parts of homework problem
+  {% We put this space here to make sure we're not connected to the above.
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.2in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }   %note first letter 'A' capital!
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+\newcommand{\wtM}{\textcolor{white}{M}}  %for indent in before paragraphs
+\newcommand{\ud}{\mathrm{d}} %for derivative
+\newcommand{\cm}{\mathrm{\,cm}} %centimeter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Title}{Week 5}
+\newcommand{\DueDate}{September, 2015}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\StudentName\quad \StudentNumber}
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\{\large Instructed by \textit{\ClassInstructor}}\\\normalsize\vspace{0.1in}}
+\date{}
+\begin{document}
+\begin{CJK}{UTF8}{gkai} %for chinese characters
+\begin{spacing}{1.2}
+\author{\textbf{\StudentName \quad李辰星}\qquad\StudentClass\quad\StudentNumber}
+\maketitle \thispagestyle{empty}
+
+\section{Shannon Entropy}
+
+In this section, we consider the entropy on $z$ basis. Consider the density matrix $\rho$ of the classical coin.
+
+\[\rho=c_0\vert 0 \rangle \langle 0 \vert+ c_1\vert 1 \rangle\langle 1 \vert.\]
+
+Then the entropy of $\rho$ is
+
+\[S(\rho)=-c_0\log c_0 -c_1 \log c_1.\]
+
+Generally, we can define the entropy of the density matrix 
+
+\[S(\rho)=-\sum_{\lambda}\lambda \log(\lambda)=-\Tr[\rho \log \rho].\]
+
+\section{Mutual entropy}
+{\color{white} 1}
+
+We use $H(X)$ to denote the entropy of random variable $X$, and $H(X|Y)$ to denote the condition entropy of $X$ given $Y$. The definition of condition entropy will be proposed later on.
+
+Suppose random variable $X,Y$ are independent, then we can not get more information about $X$ even if we are given $Y$. Which means
+
+\[H(X)-H(X|Y)=0.\]
+
+If we are given $Y=y$, then the entropy of $X$ will be $H(X|Y=y)$.
+
+\[H(X|Y=y)=-\sum_i \Pr[x_i|Y=y]\log(\Pr[x_i|Y=y]).\]
+
+The formal definition of condition entropy is
+
+\[H(X|Y)=\sum_y \Pr[Y=y]\cdot H(X|Y=y)=-\sum_{x,y}\Pr[X=x,Y=y]\log(\Pr[X=x|Y=y]).\]
+
+Also we have
+
+\begin{align}
+	&-\sum_{x,y}\Pr[X=x,Y=y]\log(\Pr[X=x|Y=y]) \notag \\
+	=&-\sum_{x,y}\Pr[X=x,Y=y]\left(\log(\Pr[X=x,Y=y])-\log(\Pr[Y=y])\right) \notag \\
+	=&-\sum_{x,y}\Pr[X=x,Y=y]\log(\Pr[X=x,Y=y])+ \sum_{x,y}\Pr[X=x,Y=y]\log(\Pr[Y=y]) \notag \\
+	=& -\sum_{x,y}\Pr[X=x,Y=y]\log(\Pr[X=x,Y=y])+ \sum_{y}\Pr[Y=y]\log(\Pr[Y=y]) \notag \\
+	=&H(X,Y)-H(Y) \notag
+\end{align}
+
+The mutual entropy is defined as 
+
+\[I(X,Y)=H(X)-H(X|Y)=H(X)+H(Y)-H(X,Y).\]
+
+\section{Holevo's Theorem} 
+
+A qubit has entropy at most 1. This means you can not communicate more than 1 bit information with 1 qubit. 
+
+If Alice want to transfer with 2 qubit, she encode such that 
+
+\begin{center}
+ 	\begin{tabular}{|c|c|c|c|}
+ 		\cline{1-4}
+ 		00 & 01 & 10 & 11  \\ \cline{1-4}
+ 		$\vert 0 \rangle$ & $\vert 1 \rangle$ & $\vert + \rangle$ &$\vert - \rangle$  \\\cline{1-4}
+ 	\end{tabular}
+ \end{center}
+
+ Bob can not distinguish non-othorganal. So such transfermation cannot success.  
+
+ But if Alice and Bob obtain a pair of entangle qubits $\vert \psi \rangle_{AB} = \vert 00 \rangle + \vert 11 \rangle.$ Alice can encode the 2 bits by appling measurement $I,\sigma_x,\sigma_z,\sigma_x \sigma_z$ and transfer this qubit to Bob. When bob get qubits, he can perform opreation C-NOT, and measure the first qubit in $\sigma_x$ basis and the second qubit in $\sigma_z$ basis. 
+
+\section{A paradox}
+ For entangle qubit, we may have \[H(X,Y)=0,H(X)=1,H(Y)=1.\]
+
+ In this way \[H(X|Y)=H(X,Y)-H(Y)=-1.\]
+\end{spacing}
+
+\end{CJK}
+
+\end{document}
+
